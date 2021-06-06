@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.List;
 
 /**
  * @author Evgeny Borisov
@@ -33,10 +34,16 @@ public class DriverService {
     @Transactional
     public void addAgeToDriver() {
 //        driverRepository.save(driver);
+        driver.setAge(666);
         entityManager.merge(driver);
         driver.setAge(666);
+        driver.setAge(667);
     }
 
+
+    public List<Driver> getAllDrivers() {
+        return driverRepository.findAll();
+    }
 
     public void addNewDriver() {
         Driver johnSnow = Driver.builder().name("John SNOW").age(250).build();
@@ -50,7 +57,7 @@ public class DriverService {
     @Transactional
     public void incAge() {
         Iterable<Driver> drivers = driverRepository.findAll();
-        drivers.forEach(driver -> driver.setAge(driver.getAge() + 1));
+        drivers.forEach(driver -> driver.setAge(777));
 
     }
 
